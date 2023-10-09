@@ -211,6 +211,12 @@ class Async(OBD):
                         self.__thread = None
                         return
 
+                    if not self.__running:
+                        logger.info("Async thread terminated because running = False")
+                        self.__running = False
+                        self.__thread = None
+                        return
+
                     # force, since commands are checked for support in watch()
                     r = super(Async, self).query(c, force=True)
 
